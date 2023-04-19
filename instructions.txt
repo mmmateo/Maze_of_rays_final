@@ -1,0 +1,5 @@
+afin de bien lancer le projet,
+il est nécessaire d'avoir importé la bibliothèque pyxel de python,
+ainsi que de bien vérifier que le fichier "banque_d_image.py" 
+soit bien dans le meme dossier que le fichier "maze_of_rays.py"
+vous pouvez alors éxecuter le fichier "maze_of_rays.py" et profiter du projet.
