@@ -134,26 +134,17 @@ class Labyrinthe:
             pyxel.rect(0,(100+int(tete)-lampe)*4,640,40,8)
             pyxel.rect(0,(110+int(tete)-lampe)*4,640,80,14)
             pyxel.rect(0,(130+int(tete)-lampe)*4,640,(200-130+int(tete)-lampe)*4+4,15)
-            if rendu=='640':
-                pyxel.rect(0,(max(a,87-lampe))*4+int(tete)*2-2,640,(100+int(tete)-lampe-max(a,87-lampe))*4-int(tete)*2+2,8)
-                for k in range((max(a,87-lampe))*4+int(tete)*2-2,(100+int(tete)-lampe)*4+2):
-                    for l in range(k%2,640+k%2,2):
-                        pyxel.pset(l,k,0)
-                for k in range((110+int(tete)-lampe)*4,(120+int(tete)-lampe)*4):
-                    for l in range(k%2,640+k%2,2):
-                        pyxel.pset(l,k,8)
-                for k in range((130+int(tete)-lampe)*4,(140+int(tete)-lampe)*4):
-                    for l in range(k%2,640+k%2,2):
-                        pyxel.pset(l,k,14)
+                        
             def dist(i):
-                return -i[0]            
+                return -i[0]
+            
             bonus=[]            
-            for i in range(0,160):
-                balayage=(perso.facing-80+i)%360
+            for i in range(0,int(160/rendu)):
+                balayage=(perso.facing-80+rendu*i)%360
                 distance=1
                 fin=False
                 angle=False
-                if rendu=='160':
+                if True:
                     while self.pyxels[perso.y//90+int(pyxel.sin(balayage)*distance)][perso.x//90+int(pyxel.cos(balayage)*distance)]!=0 and self.pyxels[perso.y//90+int(pyxel.sin(balayage)*distance)][perso.x//90+int(pyxel.cos(balayage)*distance)]!=2 and distance<40:
                         if bonus==[] or bonus[-1][2]!=i:
                             if self.pyxels[perso.y//90+int(pyxel.sin(balayage)*distance)][perso.x//90+int(pyxel.cos(balayage)*distance)]==9:
@@ -201,79 +192,15 @@ class Labyrinthe:
                         couleur1=0
                         
                     if distance-lampe<40:
-                        pyxel.rect(i*4,(int((160-(pyxel.atan2(20,2*distance))*2)//2))*4+2*int(tete),4,4*(int((pyxel.atan2(20,2*distance))*2))+int(tete)*2,couleur1)
-                                
-                else:
-                    while self.pyxels[perso.y//90+int(pyxel.sin(balayage)*distance)][perso.x//90+int(pyxel.cos(balayage)*distance)]!=0 and self.pyxels[perso.y//90+int(pyxel.sin(balayage)*distance)][perso.x//90+int(pyxel.cos(balayage)*distance)]!=2 and distance<40:
-                        if bonus==[] or bonus[-1][2]!=i:
-                            if self.pyxels[perso.y//90+int(pyxel.sin(balayage)*distance)][perso.x//90+int(pyxel.cos(balayage)*distance)]==9:
-                                bonus.append((distance,9,i))
-                            elif self.pyxels[perso.y//90+int(pyxel.sin(balayage)*distance)][perso.x//90+int(pyxel.cos(balayage)*distance)]==10:
-                                bonus.append((distance,10,i))
-                            elif self.pyxels[perso.y//90+int(pyxel.sin(balayage)*distance)][perso.x//90+int(pyxel.cos(balayage)*distance)]==5:
-                                bonus.append((distance,13,i))
-                        distance+=1
-                    if self.pyxels[perso.y//90+int(pyxel.sin(balayage)*distance)][perso.x//90+int(pyxel.cos(balayage)*distance)]==2:
-                        fin=True
-                    if (perso.y//90+int(pyxel.sin(balayage)*distance))%15==0 and (perso.x//90+int(pyxel.cos(balayage)*distance))%15==0:
-                        angle=True
-                    if distance-lampe<5:
-                        if not fin:
-                            couleur1=(7,7)
-                        else:
-                            couleur1=(7,11)
-                    elif distance-lampe<10:
-                        if not fin:
-                            couleur1=(7,6)
-                        else:
-                            couleur1=(11,11)
-                    elif distance-lampe<15:
-                        if not fin:
-                            couleur1=(6,6)
-                        else:
-                            couleur1=(11,11)
-                    elif distance-lampe<20:
-                        if not fin:
-                            couleur1=(6,5)
-                        else:
-                            couleur1=(11,3)
-                    elif distance-lampe<25:
-                        if not fin:
-                            couleur1=(5,5)
-                        else:
-                            couleur1=(11,3)
-                    elif distance-lampe<30:
-                        if not fin:
-                            couleur1=(5,1)
-                        else:
-                            couleur1=(3,3)
-                    elif distance-lampe<35:
-                        if not fin:
-                            couleur1=(1,1)
-                        else:
-                            couleur1=(3,3)
-                    elif distance-lampe<40 and distance<40:
-                        if not fin:
-                            couleur1=(1,0)
-                        else:
-                            couleur1=(3,0)
-                            
-                    if angle==True:
-                        couleur1=(0,0)
-                        
-                    if distance-lampe<40 and distance<40:
-                        pyxel.rect(i*4,(int((160-(pyxel.atan2(20,2*distance))*2)//2))*4+2*int(tete),4,4*(int((pyxel.atan2(20,2*distance))*2))+int(tete)*2,couleur1[0])
-                        if couleur1[0]!=couleur1[1]:                           
-                            for k in range((int((160-(pyxel.atan2(20,2*distance))*2)//2))*4+2*int(tete),(int((160-(pyxel.atan2(20,2*distance))*2)//2+(pyxel.atan2(20,2*distance))*2))*4+int(tete)*3):
-                                for r in range(0+k%2,4+k%2,2):
-                                    pyxel.pset(i*4+r,k,couleur1[1])
+                        pyxel.rect(int(i*4*rendu),(int((160-(pyxel.atan2(20,2*distance))*2)//2))*4+2*int(tete),int(4*rendu),4*(int((pyxel.atan2(20,2*distance))*2))+int(tete)*2,couleur1)
+
             bonus.sort(key=dist)
             for k in bonus:
                 if k[0]-lampe<40:
                     if k[1]==13:
-                        pyxel.elli(int(k[2]*4-(660//k[0])),80*4-(660//k[0])*2,(660//k[0])*2,int((660//k[0])*4*(abs(pyxel.cos(pyxel.frame_count*7))+1)/1.5),k[1])
+                        pyxel.elli(int(k[2]*4*rendu-(660//k[0])),80*4-(660//k[0])*2,(660//k[0])*2,int((660//k[0])*4*(abs(pyxel.cos(pyxel.frame_count*7))+1)/1.5),k[1])
                     else:
-                        pyxel.circ(k[2]*4,80*4,660//k[0],k[1])  
+                        pyxel.circ(int(k[2]*4*rendu),80*4,660//k[0],k[1])  
                 
 class Mob:
     def __init__(self,x,y,pyxels):
@@ -503,7 +430,7 @@ class Personnage:
         self.tete=0
         self.lampe=-15
         self.discretion=0
-    
+        
     def draw_overlay(self,vitesse_mob,plume,ampoule,oeuil,mob,lenteur):
         '''dessine l'overlay du personnage (affichage du niveau des bonus et du temps) avec des images du module 'banque_d_image' '''
         affiche_image(plume,12,14,2)
@@ -652,7 +579,7 @@ class App:
         
         self.labyrinthe=Labyrinthe(5,5)
         self.perso=Personnage()
-        self.rendu='160'
+        self.rendu=1
         self.nb_mob=1
         self.vitesse_mob=2.5
         self.danger=0
@@ -741,16 +668,10 @@ class App:
                 self.nb_mob-=1
             if pyxel.btn(pyxel.MOUSE_BUTTON_LEFT) and pyxel.mouse_x>531 and pyxel.mouse_x<619 and pyxel.mouse_y>411 and pyxel.mouse_y<499 and self.nb_mob<99:
                 self.nb_mob+=1
-            if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT) and pyxel.mouse_x>21 and pyxel.mouse_x<109 and pyxel.mouse_y>148 and pyxel.mouse_y<236:
-                if self.rendu=='160':
-                    self.rendu='640'
-                else:
-                    self.rendu='160'
-            if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT) and pyxel.mouse_x>531 and pyxel.mouse_x<619 and pyxel.mouse_y>148 and pyxel.mouse_y<236:
-                if self.rendu=='160':
-                    self.rendu='640'
-                else:
-                    self.rendu='160'
+            if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT) and pyxel.mouse_x>21 and pyxel.mouse_x<109 and pyxel.mouse_y>148 and pyxel.mouse_y<236 and self.rendu<4:
+                self.rendu=self.rendu*2
+            if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT) and pyxel.mouse_x>531 and pyxel.mouse_x<619 and pyxel.mouse_y>148 and pyxel.mouse_y<236 and self.rendu>0.25:
+                self.rendu=self.rendu/2
                         
         elif self.mode=='loose' or self.mode=='win':
             if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT) and pyxel.mouse_x>163 and pyxel.mouse_x<477 and pyxel.mouse_y>525 and pyxel.mouse_y<600:
@@ -882,32 +803,34 @@ class App:
             affiche_image(banque_d_image.images['+'],553,302,15,7)
             affiche_image(banque_d_image.images['-'],43,302,15,7)
             affiche_image(banque_d_image.images['taille'],170,305,7,7)
-            affiche_image(banque_d_image.images[':'],330,300,10,7)
+            affiche_image(banque_d_image.images[':'],335,300,10,7)
             affiche_image(banque_d_image.images[self.taille//100],370,302,9,7)
             affiche_image(banque_d_image.images[(self.taille//10)%10],400,302,9,7)
             affiche_image(banque_d_image.images[self.taille%10],430,302,9,7)
             pyxel.rect(170,148,300,90,10)
             pyxel.circ(170,192,44,10)
             pyxel.circ(470,192,44,10)
-            if pyxel.mouse_x>531 and pyxel.mouse_x<619 and pyxel.mouse_y>148 and pyxel.mouse_y<236:
-                pyxel.circ(575,192,44,3)
+            if self.rendu>0.25:
+                if pyxel.mouse_x>531 and pyxel.mouse_x<619 and pyxel.mouse_y>148 and pyxel.mouse_y<236:
+                    pyxel.circ(575,192,44,3)
+                else:
+                    pyxel.circ(575,192,44,11)
             else:
-                pyxel.circ(575,192,44,11)
-            if pyxel.mouse_x>21 and pyxel.mouse_x<109 and pyxel.mouse_y>148 and pyxel.mouse_y<236:
-                pyxel.circ(65,192,44,3)
+                pyxel.circ(575,192,44,13)
+            if self.rendu<4:
+                if pyxel.mouse_x>21 and pyxel.mouse_x<109 and pyxel.mouse_y>148 and pyxel.mouse_y<236:
+                    pyxel.circ(65,192,44,4)
+                else:
+                    pyxel.circ(65,192,44,8)
             else:
-                pyxel.circ(65,192,44,11)
-            affiche_image(banque_d_image.images['>'],560,162,12,7)
-            affiche_image(banque_d_image.images['<'],42,162,12,7)
-            affiche_image(banque_d_image.images['couleur'],170,173,7,7)
-            affiche_image(banque_d_image.images[':'],360,170,10,7)
-            if self.rendu=='160':
-                affiche_image(banque_d_image.images[1],410,173,7,7)
-                affiche_image(banque_d_image.images[6],439,173,7,7)
-            else:
-                affiche_image(banque_d_image.images[1],400,173,7,7)
-                affiche_image(banque_d_image.images[3],429,173,7,7)
-                affiche_image(banque_d_image.images[6],457,173,7,7)
+                pyxel.circ(65,192,44,13)
+            affiche_image(banque_d_image.images['+'],553,168,15,7)
+            affiche_image(banque_d_image.images['-'],43,168,15,7)
+            affiche_image(banque_d_image.images['rendu'],190,173,7,7)
+            affiche_image(banque_d_image.images[':'],340,170,10,7)
+            affiche_image(banque_d_image.images[int(160/self.rendu)//100%10],381,170,9,7)
+            affiche_image(banque_d_image.images[int(160/self.rendu)//10%10],411,170,9,7)
+            affiche_image(banque_d_image.images[int(160/self.rendu)%10],441,170,9,7)
             if pyxel.mouse_x>163 and pyxel.mouse_x<477 and pyxel.mouse_y>525 and pyxel.mouse_y<600:
                 pyxel.rect(200,525,240,75,11)
                 pyxel.circ(200,562,37,11)
@@ -1076,4 +999,6 @@ def affiche_image(tab,x,y,facteur=1,couleur=-1):
                         pyxel.rect(x+j,y+i,facteur,facteur,couleur)
                         
 App()
+
+
 
