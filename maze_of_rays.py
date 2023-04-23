@@ -127,7 +127,7 @@ class Labyrinthe:
                    pile.empiler((x[0],x[1]+1))
     
     def draw(self,perso,tete,lampe,rendu):
-        '''Dessine le rendu graphique du labyrinthe grâce au ray-casting en fonction de la position du personnage, la hauteur de sa tete, la distance à laquelle il voit et du type de couleurs'''
+        '''Dessine le rendu graphique du labyrinthe grâce au ray-cast en fonction de la position du personnage, la hauteur de sa tete, la distance à laquelle il voit et du nombre de rayon a envoyer'''
         if True:
             a=int((160-(pyxel.atan2(20,2*(40-lampe)))*2)//2+(pyxel.atan2(20,2*(40-lampe)))*2)
             pyxel.rect(0,(max(a,87-lampe))*4+int(tete)*2-2,640,(100+int(tete)-lampe-max(a,87-lampe))*4-int(tete)*2+2,2)
@@ -417,7 +417,7 @@ class Mob:
         
 class Personnage:
     def __init__(self):
-        '''constructeur de la classe Personnage ave cles attibuts x et y pour sa position,
+        '''constructeur de la classe Personnage avec les attibuts x et y pour sa position,
             facing pour la direction ou il regarde, speed pour la vitesse, tete pour la hauteur de sa tete,
             hochement pour savoir dans quelle direction vas bouger sa tete, lampe pour savoir a quelle distance il voit
             et discretion pour savoir a quelle distance il peut etre vu par les monstres de la classe mob'''
@@ -568,8 +568,8 @@ class Personnage:
         
 class App:
     def __init__(self):
-        '''constructeur de la classe App avec les attributs laburinthe de la classe Labyrinthe, perso de la classe Personnage,
-            rendu un entier définnissant le nombre de couleurs possibles, nb_mob deffinissant le nombre de monstres de la classe
+        '''constructeur de la classe App avec les attributs labyrinthe de la classe Labyrinthe, perso de la classe Personnage,
+            rendu un float definissant 1/160 du nombre de rayon a envoyer, nb_mob deffinissant le nombre de monstres de la classe
             Monstre dans le tableau liste_mob, vitesse_mob un float définissant leur vitesse,danger un entier définissant si l'on est
             poursuivi par un monstre ou non, instant_lance, un entier vallant le nombre de frame écoulée avant de lancer la partie,
             mode, un string définissant dans quel mode on se situe, temps_fin ,
