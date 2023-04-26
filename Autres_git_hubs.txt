@@ -1,2 +1,0 @@
-Lien vers le github contenant les prototypes et avancees du projet:
-https://github.com/mmmateo/projet_nsi
